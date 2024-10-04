@@ -10,7 +10,7 @@ from datetime import datetime
 
 dir_data=os.getcwd()
 os.chdir(dir_data+"\\data_set")
-plot_dir= dir_data+"\\plot\\"
+plot_dir= dir_data+"\\plots\\"
 
 fasta_sequences_neg = SeqIO.parse(open("negative.fa"), 'fasta')
 fasta_sequences_pos = SeqIO.parse(open("positive.fa"), 'fasta')

@@ -59,12 +59,14 @@ def compute_AUC(store_metric):
     x= store_metric[:,1]; y= store_metric[:,0]
     area= 0
     for i in range(1,len(y)):
-        area+= (x[i]-x[i-1])*y[i-1]
+        area+= (x[i]-x[i-1])*y[i]
     return area
 
 def plot_roc_curve(store_tpr_fpr, order, c):
     # print(store_tpr_fpr)
-    plt.plot(store_tpr_fpr[:,1], store_tpr_fpr[:,0], label= "fold number" +str(c)+" auc="+str(compute_AUC(store_tpr_fpr)), alpha=0.6)
+    auc= np.round(compute_AUC(store_tpr_fpr),2)
+    plt.plot(store_tpr_fpr[:,1], store_tpr_fpr[:,0], label= "fold number" +str(c)+" auc="+str(auc), alpha=0.6)
+    plt.scatter(store_tpr_fpr[:,1], store_tpr_fpr[:,0])
     plt.xlim(0,1); plt.ylim(0,1)
     plt.xlabel("FPR"); plt.ylabel("TPR")
     plt.title("roc for order "+str(order))
@@ -75,11 +77,13 @@ def plot_roc_all(store_tpr_fpr_all, order, no_of_splits):
     x=[0,1]; y=[0,1]
     plt.plot(x,y,linestyle= "dashed")
     plt.legend()
-    plt.savefig("order_"+str(order)+"TPR_FPR_plot_w_"+str(no_of_splits)+"_splits.png")
+    plt.savefig("order_"+str(order)+"_TPR_FPR_plot_w_"+str(no_of_splits)+"_splits.png")
+    plt.clf()
     
 def plot_prec_rec_curve(store_prec_rec, order, c):
-    # print(store_tpr_fpr)
-    plt.plot(store_prec_rec[:,1], store_prec_rec[:,0], label= "fold number" +str(c), alpha=0.6)
+    auc= np.round(compute_AUC(store_prec_rec),2)
+    plt.plot(store_prec_rec[:,1], store_prec_rec[:,0], label= "fold number" +str(c)+" auc="+str(auc), alpha=0.6)
+    plt.scatter(store_prec_rec[:,1], store_prec_rec[:,0])
     plt.xlim(0,1); plt.ylim(0,1)
     plt.xlabel("RECALL"); plt.ylabel("PRECISION")
     plt.title("precision_recall curve for order "+str(order))
@@ -90,4 +94,5 @@ def plot_prec_rec_all(store_prec_rec_all, order, no_of_splits):
     x=[0,1]; y=[0,1]
     plt.plot(x,y,linestyle= "dashed")
     plt.legend()
-    plt.savefig("order_"+str(order)+"PREC_REC_plot_w_"+str(no_of_splits)+"_splits.png")    
+    plt.savefig("order_"+str(order)+"_PREC_REC_plot_w_"+str(no_of_splits)+"_splits.png")    
+    plt.clf()
