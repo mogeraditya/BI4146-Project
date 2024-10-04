@@ -1,5 +1,5 @@
 # Intermediate Goal: Markov Model
-
+### Aditya Moger (20211062) and Saranya Sundar (20211080)
 ## Overview
 The goal of the project is to build a Markov Model classifier for determining if the given DNA sequence shows promoter activity or not. 
 The code takes the order of the markov model, the number of folds for cross-validation and the sequences for training and testing as inputs. The user can also set the number of thresholds they want to use to plot to the roc-curve. 
