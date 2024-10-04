@@ -14,7 +14,7 @@ plot_dir= dir_data+"\\plots\\"
 
 fasta_sequences_neg = SeqIO.parse(open("negative.fa"), 'fasta')
 fasta_sequences_pos = SeqIO.parse(open("positive.fa"), 'fasta')
-order=0; no_of_splits = 4 
+order=0; no_of_splits = 4; no_of_points_in_roc= 30
 
 neg_seq, pos_seq, list_of_sequences, list_of_ids= sf.read_fasta(fasta_sequences_neg, fasta_sequences_pos)
 training_sequences, training_ids, testing_sequences, testing_ids = sf.to_split_data(list_of_sequences, list_of_ids, no_of_splits)
@@ -30,7 +30,7 @@ for c in range (0, no_of_splits):
     negative_likelihoods, positive_likelihoods = sf.to_test_model(testing_sequences_per_fold, order, trained_averaged_neg_matrix, trained_averaged_pos_matrix, labels)
     negative_likelihoods_all.append(negative_likelihoods); positive_likelihoods_all.append(positive_likelihoods)
     
-    store_tpr_fpr, store_prec_rec= plotter.get_metrics(positive_likelihoods, negative_likelihoods, 30, testing_ids[c])
+    store_tpr_fpr, store_prec_rec= plotter.get_metrics(positive_likelihoods, negative_likelihoods, no_of_points_in_roc, testing_ids[c])
     tpr_fpr_all.append(store_tpr_fpr); prec_rec_all.append(store_prec_rec)
 
 os.chdir(plot_dir)
