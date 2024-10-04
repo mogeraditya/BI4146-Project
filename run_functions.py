@@ -9,12 +9,12 @@ import matplotlib.pyplot as plt
 from datetime import datetime 
 
 dir_data=os.getcwd()
-os.chdir(dir_data)
+os.chdir(dir_data+"\\data_set")
 plot_dir= dir_data+"\\plot\\"
 
 fasta_sequences_neg = SeqIO.parse(open("negative.fa"), 'fasta')
 fasta_sequences_pos = SeqIO.parse(open("positive.fa"), 'fasta')
-order=3; no_of_splits = 4 
+order=0; no_of_splits = 4 
 
 neg_seq, pos_seq, list_of_sequences, list_of_ids= sf.read_fasta(fasta_sequences_neg, fasta_sequences_pos)
 training_sequences, training_ids, testing_sequences, testing_ids = sf.to_split_data(list_of_sequences, list_of_ids, no_of_splits)
