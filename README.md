@@ -19,4 +19,4 @@ Predicts labels for each test sequence using the scores obtained from the test f
 
 run_functions.py
 
-It runs all the above functions. 
+It runs all the above functions. The values for number of splits, order of markov model and the number of thresholds to calculate roc can be inputted by user in this function. 
