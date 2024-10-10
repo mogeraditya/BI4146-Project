@@ -86,20 +86,14 @@ def create_matrix_given_seq_and_order(sequence, order):
     matrix= np.zeros(shape= (len(matrix_rows), len(nucleotides)))
     matrix= 0.0001* np.ones(shape= (len(matrix_rows), len(nucleotides))) + matrix
 
-    for entry in matrix_rows:
-        denom_per_nucleotide= 0
-        index_row= matrix_rows.index(entry)
-            
-        for char_index in range(len(sequence)):
-            if char_index!=len(sequence)-order:
-                if entry == sequence[char_index: char_index+order]:
-                    denom_per_nucleotide+=1
-                    index_col= nucleotides.index(sequence[char_index+1])
-                    matrix[index_row, index_col]+=1
-        if denom_per_nucleotide != 0:
-            matrix[index_row] = matrix[index_row]/denom_per_nucleotide
-        else:
-            matrix[index_row] = 0.000001
+    for char_index in range(order,len(sequence)):
+        index_col= nucleotides.index(sequence[char_index])
+        index_row= matrix_rows.index(sequence[char_index-order: char_index])
+        matrix[index_row, index_col]+=1
+    
+    # denom= np.sum(matrix, axis=0)
+    matrix= np.array(matrix)
+    matrix= matrix/ matrix.sum(axis=0)
             
     return matrix, matrix_rows
 
